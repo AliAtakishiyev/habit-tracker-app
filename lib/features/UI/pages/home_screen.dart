@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/features/UI/widgets/custom_app_bar.dart';
+import 'package:habit_tracker_app/features/UI/widgets/no_habits.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  double padValue = 0;
+  bool isit = true;
+
+  late TextEditingController? _habitController;
+
+  @override
+  void initState() {
+    super.initState();
+    _habitController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _habitController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xffF8F7F0),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              CustomAppBar(),
+
+              TextField(
+                controller: _habitController,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.add),
+                  contentPadding: EdgeInsets.symmetric(vertical: 24),
+
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: Color(0xffA8CCB5)),
+                  ),
+                  suffixIcon: _habitController!.text.isEmpty
+                      ? SizedBox()
+                      : SizedBox(
+                          width: 80,
+                          height: 55,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(0, 32),
+                                backgroundColor: Color(0xff4B9B73),
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: Text(
+                                "Add",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: .bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                ),
+              ),
+
+              NoHabits(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
