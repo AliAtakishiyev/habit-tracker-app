@@ -10,20 +10,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double padValue = 0;
-  bool isit = true;
-
   late TextEditingController? _habitController;
+
+  final FocusNode _focusNode = FocusNode();
+  bool _focused = false;
 
   @override
   void initState() {
     super.initState();
     _habitController = TextEditingController();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        _focused = true;
+      } else {
+        _focused = false;
+      }
+    });
   }
 
   @override
   void dispose() {
     _habitController?.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -33,26 +41,40 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color(0xffF8F7F0),
       body: SafeArea(
         child: Padding(
-
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: Center(
             child: Column(
               children: [
                 CustomAppBar(),
-          
+
                 TextField(
                   controller: _habitController,
+                  focusNode: _focusNode,
                   onChanged: (value) {
                     setState(() {});
                   },
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.add),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _focused ? Color(0xffA8CAB7): Color(0xffD3D2D4),
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffF8F7F0),
+                          radius: 4,
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                    ),
                     contentPadding: EdgeInsets.symmetric(vertical: 24),
-          
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-          
+
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(color: Color(0xffA8CCB5)),
@@ -86,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                   ),
                 ),
-          
+
                 NoHabits(),
               ],
             ),
