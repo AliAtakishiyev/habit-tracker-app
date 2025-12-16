@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/features/UI/pages/home_screen.dart';
+import 'package:habit_tracker_app/features/models/habit.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  // Initialize Hive
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(HabitAdapter());
+
+  await Hive.openBox<Habit>('habits');
+
+  //   if (Hive.isBoxOpen('notes')) {
+  //   await Hive.box<Note>('notes').close();
+  // }
+
+  // await Hive.deleteBoxFromDisk('notes');
+
   runApp(const MyApp());
 }
 
