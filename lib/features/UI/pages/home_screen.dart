@@ -32,60 +32,64 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Color(0xffF8F7F0),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              CustomAppBar(),
+        child: Padding(
 
-              TextField(
-                controller: _habitController,
-                onChanged: (value) {
-                  setState(() {});
-                },
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.add),
-                  contentPadding: EdgeInsets.symmetric(vertical: 24),
-
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Color(0xffA8CCB5)),
-                  ),
-                  suffixIcon: _habitController!.text.isEmpty
-                      ? SizedBox()
-                      : SizedBox(
-                          width: 80,
-                          height: 55,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(0, 32),
-                                backgroundColor: Color(0xff4B9B73),
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+          child: Center(
+            child: Column(
+              children: [
+                CustomAppBar(),
+          
+                TextField(
+                  controller: _habitController,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.add),
+                    contentPadding: EdgeInsets.symmetric(vertical: 24),
+          
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+          
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Color(0xffA8CCB5)),
+                    ),
+                    suffixIcon: _habitController!.text.isEmpty
+                        ? SizedBox()
+                        : SizedBox(
+                            width: 80,
+                            height: 55,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(0, 32),
+                                  backgroundColor: Color(0xff4B9B73),
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                "Add",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: .bold,
+                                child: Text(
+                                  "Add",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: .bold,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                  ),
                 ),
-              ),
-
-              NoHabits(),
-            ],
+          
+                NoHabits(),
+              ],
+            ),
           ),
         ),
       ),
