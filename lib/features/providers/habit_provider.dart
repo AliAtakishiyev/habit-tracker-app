@@ -17,11 +17,15 @@ class HabitProvider extends Notifier<List<Habit>> {
   }
 
   Future<void> deleteHabit(int hiveId) async {
-    await repository.deleteNote(hiveId);
+    await repository.deleteHabit(hiveId);
     state = repository.getAllHabits();
   }
 
   void refresh() {
-    repository.getAllHabits();
+    state = repository.getAllHabits();
   }
 }
+
+final habitProvider = NotifierProvider<HabitProvider, List<Habit>>(
+  HabitProvider.new,
+);

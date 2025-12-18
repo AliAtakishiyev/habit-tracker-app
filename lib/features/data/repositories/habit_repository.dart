@@ -14,7 +14,7 @@ class HabitRepository {
     return id;
   }
 
-  Future<void> deleteNote(int hiveID) async {
+  Future<void> deleteHabit(int hiveID) async {
     await box.delete(hiveID);
   }
 }
