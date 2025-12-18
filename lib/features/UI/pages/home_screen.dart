@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/features/UI/widgets/custom_app_bar.dart';
+import 'package:habit_tracker_app/features/UI/widgets/habit_list.dart';
 import 'package:habit_tracker_app/features/UI/widgets/no_habits.dart';
+import 'package:habit_tracker_app/features/providers/habit_provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   late TextEditingController? _habitController;
 
   final FocusNode _focusNode = FocusNode();
@@ -37,6 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final habits = ref.watch(habitProvider);
+    final habitCount = habits.length;
+
     return Scaffold(
       backgroundColor: Color(0xffF8F7F0),
       body: SafeArea(
@@ -60,7 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.all(2),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: _focused ? Color(0xffA8CAB7): Color(0xffD3D2D4),
+                          color: _focused
+                              ? Color(0xffA8CAB7)
+                              : Color(0xffD3D2D4),
                         ),
                         child: CircleAvatar(
                           backgroundColor: Color(0xffF8F7F0),
@@ -87,7 +95,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  final alreadyExisted = habits.any(
+                                    (habit) =>
+                                        habit.name!.toLowerCase() ==
+                                        _habitController!.text.toLowerCase(),
+                                  );
+                                  if (alreadyExisted) {
+                                    print("nah bro");
+                                  } else {
+                                    await ref
+                                        .read(habitProvider.notifier)
+                                        .addHabit(_habitController!.text);
+                                  }
+                                },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(0, 32),
                                   backgroundColor: Color(0xff4B9B73),
@@ -109,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                NoHabits(),
+                (habitCount == 0) ? NoHabits() : HabitList(),
               ],
             ),
           ),

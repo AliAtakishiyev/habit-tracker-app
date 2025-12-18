@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^6.3.3
   hive_flutter: ^1.1.0
   riverpod: ^3.0.3
+  flutter_riverpod: ^3.0.3
 
 
 dev_dependencies:
