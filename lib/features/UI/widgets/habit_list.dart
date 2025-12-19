@@ -34,7 +34,6 @@ class HabitList extends ConsumerWidget {
             );
           } else {
             final habit = habits[index];
-            
 
             return SizedBox(
               height: 90,
@@ -65,6 +64,15 @@ class HabitList extends ConsumerWidget {
                           fontSize: 20,
                           wordSpacing: 1,
                         ),
+                      ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () { 
+                          ref
+                              .read(habitProvider.notifier)
+                              .deleteHabit(habit.key);
+                        },
+                        icon: Icon(Icons.delete),
                       ),
                     ],
                   ),

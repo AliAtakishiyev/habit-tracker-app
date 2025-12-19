@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker_app/features/UI/widgets/add_habit_text_field.dart';
 import 'package:habit_tracker_app/features/UI/widgets/custom_app_bar.dart';
 import 'package:habit_tracker_app/features/UI/widgets/habit_list.dart';
 import 'package:habit_tracker_app/features/UI/widgets/no_habits.dart';
@@ -48,8 +49,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               children: [
                 CustomAppBar(),
                 (habitCount == 0) ? NoHabits() : HabitList(controller: _habitController!,focusNode: _focusNode,),
-
-                
               ],
             ),
           ),
