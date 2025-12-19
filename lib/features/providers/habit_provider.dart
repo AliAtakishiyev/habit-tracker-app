@@ -21,6 +21,11 @@ class HabitProvider extends Notifier<List<Habit>> {
     state = repository.getAllHabits();
   }
 
+  Future<void> editHabit(int hiveId, bool status) async {
+    await repository.editHabit(hiveId, status);
+    state = repository.getAllHabits();
+  }
+
   void refresh() {
     state = repository.getAllHabits();
   }

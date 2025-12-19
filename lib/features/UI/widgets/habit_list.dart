@@ -17,19 +17,24 @@ class HabitList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habitCount = ref.read(habitProvider).length;
+    final habitCount = ref.watch(habitProvider).length;
     final habits = ref.watch(habitProvider);
+
     return Expanded(
       child: ListView.builder(
         itemCount: habitCount + 1,
         itemBuilder: (context, index) {
           if (index == habitCount) {
-            return AddHabitTextField(
-              controller: controller,
-              focusNode: focusNode,
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: AddHabitTextField(
+                controller: controller,
+                focusNode: focusNode,
+              ),
             );
           } else {
             final habit = habits[index];
+            
 
             return SizedBox(
               height: 90,
@@ -45,8 +50,12 @@ class HabitList extends ConsumerWidget {
                   child: Row(
                     children: [
                       Checkbox(
-                        value: false,
-                        onChanged: (value) {},
+                        value: habit.isDone,
+                        onChanged: (value) {
+                          ref
+                              .read(habitProvider.notifier)
+                              .editHabit(habit.key, value!);
+                        },
                         shape: CircleBorder(),
                       ),
                       Text(

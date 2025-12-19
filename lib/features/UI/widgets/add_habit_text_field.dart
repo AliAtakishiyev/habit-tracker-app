@@ -46,15 +46,15 @@ class _AddHabitTextFieldState extends ConsumerState<AddHabitTextField> {
             ),
           ),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 24),
+        contentPadding: EdgeInsets.symmetric(vertical: 20),
 
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
 
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Color(0xffA8CCB5)),
         ),
-        suffixIcon: controller!.text.isEmpty
+        suffixIcon: controller.text.isEmpty
             ? SizedBox()
             : SizedBox(
                 width: 80,
