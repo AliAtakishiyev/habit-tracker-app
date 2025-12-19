@@ -54,8 +54,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Column(
               children: [
                 CustomAppBar(),
-                (habitCount == 0) ? NoHabits() : HabitList(),
-                AddHabitTextField(controller: _habitController!, focusNode: _focusNode)
+                (habitCount == 0) ? NoHabits() : HabitList(controller: _habitController!,focusNode: _focusNode,),
+                //AddHabitTextField(controller: _habitController!, focusNode: _focusNode)
 
                 
               ],
