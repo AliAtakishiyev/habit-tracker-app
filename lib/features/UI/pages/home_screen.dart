@@ -17,6 +17,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final FocusNode _focusNode = FocusNode();
   bool _focused = false;
+  String _existedName = '';
 
   @override
   void initState() {
@@ -102,11 +103,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                         _habitController!.text.toLowerCase(),
                                   );
                                   if (alreadyExisted) {
-                                    print("nah bro");
+                                    _existedName = _habitController!.text;
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "The habit “$_existedName” already exists.",
+                                        ),
+                                        behavior: SnackBarBehavior.floating,
+                                        margin: EdgeInsets.all(16),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
                                   } else {
                                     await ref
                                         .read(habitProvider.notifier)
                                         .addHabit(_habitController!.text);
+                                    _habitController!.clear();
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
