@@ -28,4 +28,53 @@ class HabitRepository {
     await box.put(hiveId, habit!);
   }
 
+  Future<void> increaseStreak(int hiveId, DateTime now) async {
+    final habit = box.get(hiveId);
+    if (habit == null) return;
+    
+
+    final last = habit.lastCompletedDate;
+
+
+    if (last == null) {
+      habit.streak = 1;
+    } else {
+      // Calculate difference in calendar days
+      final lastDate = DateTime(last.year, last.month, last.day);
+      final nowDate = DateTime(now.year, now.month, now.day);
+      final difference = nowDate.difference(lastDate).inDays;
+
+      if (difference == 0) {
+        return; // already completed today
+      } else if (difference == 1) {
+        habit.streak += 1;
+      } else {
+        habit.streak = 1;
+      }
+    }
+
+    habit.lastCompletedDate = now;
+    await box.put(hiveId, habit);
+  }
+
+  Future<void> checkDaily(int hiveId, DateTime now) async {
+    final habit = box.get(hiveId);
+    if (habit == null) return;
+    final last = habit.lastCompletedDate;
+
+    if (last == null) {
+      habit.isDone = false;
+      await box.put(hiveId, habit);
+      return;
+    }
+
+    final lastDate = DateTime(last.year, last.month, last.day);
+    final nowDate = DateTime(now.year, now.month, now.day);
+    final difference = nowDate.difference(lastDate).inDays;
+
+    if (difference >= 1) {
+      habit.isDone = false;
+      await box.put(hiveId, habit);
+    }
+  }
 }

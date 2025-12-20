@@ -8,6 +8,14 @@ class HabitProvider extends Notifier<List<Habit>> {
   @override
   List<Habit> build() {
     repository = HabitRepository();
+
+    final habits = repository.getAllHabits();
+    final now = DateTime.now();
+
+    for (final habit in habits) {
+      repository.checkDaily(habit.key, now);
+    }
+
     return repository.getAllHabits();
   }
 
@@ -23,6 +31,11 @@ class HabitProvider extends Notifier<List<Habit>> {
 
   Future<void> editHabit(int hiveId, bool status) async {
     await repository.editHabit(hiveId, status);
+    state = repository.getAllHabits();
+  }
+
+  Future<void> increaseStreak(int hiveId, DateTime now) async {
+    await repository.increaseStreak(hiveId, now);
     state = repository.getAllHabits();
   }
 

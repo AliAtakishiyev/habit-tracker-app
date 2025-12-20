@@ -23,6 +23,8 @@ class HabitList extends ConsumerWidget {
 
     final now = DateTime.now();
 
+    
+
     return Expanded(
       child: ListView.builder(
         itemCount: habitCount + 1,
@@ -60,6 +62,11 @@ class HabitList extends ConsumerWidget {
                             ref
                                 .read(habitProvider.notifier)
                                 .editHabit(habit.key, value!);
+                            if (value == true) {
+                              ref
+                                  .read(habitProvider.notifier)
+                                  .increaseStreak(habit.key, DateTime.now());
+                            }
                           },
                           shape: CircleBorder(),
                         ),
@@ -77,28 +84,34 @@ class HabitList extends ConsumerWidget {
                       ),
                       Spacer(),
 
-                      Container(
-                        width: 50,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18),
-                          color: Color(0xffFEEDD9),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: .center,
-                          children: [
-                            SvgPicture.asset("assets/streak_icon.svg",width: 16,),
-                            SizedBox(width: 2,),
-                            Text(
-                              "${habit.streak}",
-                              style: TextStyle(
-                                fontWeight: .w500,
-                                color: Color(0xffF29E27)
-                              )
+                      //streak
+                      habit.isDone
+                          ? Container(
+                              width: 50,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                color: Color(0xffFEEDD9),
                               ),
-                          ],
-                        ),
-                      ),
+                              child: Row(
+                                mainAxisAlignment: .center,
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/streak_icon.svg",
+                                    width: 16,
+                                  ),
+                                  SizedBox(width: 2),
+                                  Text(
+                                    "${habit.streak}",
+                                    style: TextStyle(
+                                      fontWeight: .w500,
+                                      color: Color(0xffF29E27),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : SizedBox.shrink(),
                       IconButton(
                         onPressed: () {
                           ref
