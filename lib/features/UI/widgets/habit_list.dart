@@ -57,12 +57,15 @@ class HabitList extends ConsumerWidget {
                         },
                         shape: CircleBorder(),
                       ),
-                      Text(
-                        "${habit.name}",
-                        style: GoogleFonts.dmSans(
-                          fontWeight: .w500,
-                          fontSize: 20,
-                          wordSpacing: 1,
+                      Expanded(
+                        child: Text(
+                          "${habit.name}",
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.dmSans(
+                            fontWeight: .w500,
+                            fontSize: 20,
+                            wordSpacing: 1,
+                          ),
                         ),
                       ),
                       Spacer(),
@@ -72,7 +75,7 @@ class HabitList extends ConsumerWidget {
                               .read(habitProvider.notifier)
                               .deleteHabit(habit.key);
                         },
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.delete_outline),
                       ),
                     ],
                   ),
