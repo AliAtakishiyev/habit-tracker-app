@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/features/UI/widgets/add_habit_text_field.dart';
 import 'package:habit_tracker_app/features/providers/habit_provider.dart';
@@ -19,6 +20,8 @@ class HabitList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final habitCount = ref.watch(habitProvider).length;
     final habits = ref.watch(habitProvider);
+
+    final now = DateTime.now();
 
     return Expanded(
       child: ListView.builder(
@@ -48,14 +51,18 @@ class HabitList extends ConsumerWidget {
                   ),
                   child: Row(
                     children: [
-                      Checkbox(
-                        value: habit.isDone,
-                        onChanged: (value) {
-                          ref
-                              .read(habitProvider.notifier)
-                              .editHabit(habit.key, value!);
-                        },
-                        shape: CircleBorder(),
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                          value: habit.isDone,
+                          activeColor: Color(0xff4B9B73),
+                          onChanged: (value) {
+                            ref
+                                .read(habitProvider.notifier)
+                                .editHabit(habit.key, value!);
+                          },
+                          shape: CircleBorder(),
+                        ),
                       ),
                       Expanded(
                         child: Text(
@@ -69,8 +76,31 @@ class HabitList extends ConsumerWidget {
                         ),
                       ),
                       Spacer(),
+
+                      Container(
+                        width: 50,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18),
+                          color: Color(0xffFEEDD9),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: .center,
+                          children: [
+                            SvgPicture.asset("assets/streak_icon.svg",width: 16,),
+                            SizedBox(width: 2,),
+                            Text(
+                              "${habit.streak}",
+                              style: TextStyle(
+                                fontWeight: .w500,
+                                color: Color(0xffF29E27)
+                              )
+                              ),
+                          ],
+                        ),
+                      ),
                       IconButton(
-                        onPressed: () { 
+                        onPressed: () {
                           ref
                               .read(habitProvider.notifier)
                               .deleteHabit(habit.key);

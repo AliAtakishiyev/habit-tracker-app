@@ -27,4 +27,5 @@ class HabitRepository {
 
     await box.put(hiveId, habit!);
   }
+
 }
