@@ -18,11 +18,17 @@ class HabitCounter extends ConsumerWidget {
           SizedBox(
             height: 150,
             width: 150,
-            child: CircularProgressIndicator(
-              value: count / habits.length,
-              strokeWidth: 10,
-              color: Color(0xff4B9B73),
-              backgroundColor: Color(0xffEEECE6),
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(end: count / habits.length),
+              duration: Duration(milliseconds: 400),
+              builder: (BuildContext context, double value, Widget? child) {
+                return CircularProgressIndicator(
+                  value: value, //count / habits.length
+                  strokeWidth: 10,
+                  color: Color(0xff4B9B73),
+                  backgroundColor: Color(0xffEEECE6),
+                );
+              },
             ),
           ),
           Column(
