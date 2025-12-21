@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/features/providers/habit_provider.dart';
 
 class HabitCounter extends ConsumerWidget {
@@ -12,37 +14,70 @@ class HabitCounter extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Stack(
-        alignment: .center,
+      child: Column(
         children: [
-          SizedBox(
-            height: 150,
-            width: 150,
-            child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(end: count / habits.length),
-              duration: Duration(milliseconds: 400),
-              builder: (BuildContext context, double value, Widget? child) {
-                return CircularProgressIndicator(
-                  value: value, //count / habits.length
-                  strokeWidth: 12,
-                  color: Color(0xff4B9B73),
-                  backgroundColor: Color(0xffEEECE6),
-                );
-              },
-            ),
-          ),
-          Column(
+          Stack(
+            alignment: .center,
             children: [
-              Text(
-                "${habits.length}",
-                style: TextStyle(fontWeight: .bold, fontSize: 30),
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween<double>(end: count / habits.length),
+                  duration: Duration(milliseconds: 400),
+                  builder: (BuildContext context, double value, Widget? child) {
+                    return CircularProgressIndicator(
+                      value: value, //count / habits.length
+                      strokeWidth: 12,
+                      color: Color(0xff4B9B73),
+                      backgroundColor: Color(0xffEEECE6),
+                    );
+                  },
+                ),
               ),
-              Text(
-                "of $count",
-                style: TextStyle(color: Color(0xff737B8C), fontSize: 15),
+              Column(
+                children: [
+                  Text(
+                    "${habits.length}",
+                    style: TextStyle(fontWeight: .bold, fontSize: 30),
+                  ),
+                  Text(
+                    "of $count",
+                    style: TextStyle(color: Color(0xff737B8C), fontSize: 15),
+                  ),
+                ],
               ),
             ],
           ),
+
+
+          (habits.length == count) ? Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Color(0xffEFF6F3)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                child: Row(
+                  mainAxisSize: .min,
+                  children: [
+                    SvgPicture.asset("assets/star_icon.svg",width: 16,),
+                    Text(
+                      "All habits complete!",
+                      style: GoogleFonts.dmSans(
+                        color: Color(0xff4B9B73),
+                        fontSize: 18,
+                        fontWeight: .bold
+                      ),
+                      ),
+                  ],
+                ),
+              )
+              ),
+          )
+          : SizedBox.shrink()
         ],
       ),
     );
