@@ -8,6 +8,8 @@ class HabitCounter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final habits = ref.watch(habitProvider);
+    int count = ref.watch(habitProvider.notifier).doneCount();
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Stack(
@@ -17,7 +19,7 @@ class HabitCounter extends ConsumerWidget {
             height: 150,
             width: 150,
             child: CircularProgressIndicator(
-              value: 0.5,
+              value: count / habits.length,
               strokeWidth: 10,
               color: Color(0xff4B9B73),
               backgroundColor: Color(0xffEEECE6),
@@ -30,7 +32,7 @@ class HabitCounter extends ConsumerWidget {
                 style: TextStyle(fontWeight: .bold, fontSize: 30),
               ),
               Text(
-                "of 2",
+                "of $count",
                 style: TextStyle(color: Color(0xff737B8C), fontSize: 15),
               ),
             ],

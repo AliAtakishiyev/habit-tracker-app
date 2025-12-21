@@ -31,10 +31,8 @@ class HabitRepository {
   Future<void> increaseStreak(int hiveId, DateTime now) async {
     final habit = box.get(hiveId);
     if (habit == null) return;
-    
 
     final last = habit.lastCompletedDate;
-
 
     if (last == null) {
       habit.streak = 1;
@@ -76,5 +74,16 @@ class HabitRepository {
       habit.isDone = false;
       await box.put(hiveId, habit);
     }
+  }
+
+  int doneCount() {
+    int count = 0;
+    box.values.forEach((element) {
+      if (element.isDone) {
+        count += 1;
+      }
+    });
+
+    return count;
   }
 }

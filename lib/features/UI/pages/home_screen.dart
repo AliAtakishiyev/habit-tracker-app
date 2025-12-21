@@ -39,6 +39,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final habits = ref.watch(habitProvider);
     final habitCount = habits.length;
+    int count = ref.watch(habitProvider.notifier).doneCount();
+
 
     return Scaffold(
       backgroundColor: Color(0xffF8F7F0),
@@ -49,7 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Column(
               children: [
                 CustomAppBar(),
-                HabitCounter(),
+                (count==0)? SizedBox.shrink():  HabitCounter(),
                 (habitCount == 0) ? NoHabits(controller: _habitController!,focusNode: _focusNode,) : HabitList(controller: _habitController!,focusNode: _focusNode,),
               ],
             ),

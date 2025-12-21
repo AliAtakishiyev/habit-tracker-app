@@ -39,6 +39,10 @@ class HabitProvider extends Notifier<List<Habit>> {
     state = repository.getAllHabits();
   }
 
+  int doneCount()  {
+    return  repository.doneCount();
+  }
+
   void refresh() {
     state = repository.getAllHabits();
   }
