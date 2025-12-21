@@ -24,7 +24,7 @@ class HabitCounter extends ConsumerWidget {
               builder: (BuildContext context, double value, Widget? child) {
                 return CircularProgressIndicator(
                   value: value, //count / habits.length
-                  strokeWidth: 10,
+                  strokeWidth: 12,
                   color: Color(0xff4B9B73),
                   backgroundColor: Color(0xffEEECE6),
                 );
