@@ -31,6 +31,10 @@ class _AddHabitTextFieldState extends ConsumerState<AddHabitTextField> {
         setState(() {});
       },
       decoration: InputDecoration(
+        hintText: "Add a new habit...",
+        hintStyle: TextStyle(
+          color: Color(0xffA8ADB4)
+        ),
         prefixIcon: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(

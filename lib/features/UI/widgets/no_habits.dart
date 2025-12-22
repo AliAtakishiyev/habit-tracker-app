@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:habit_tracker_app/features/UI/widgets/add_habit_text_field.dart';
+import 'package:habit_tracker_app/features/ui/widgets/add_habit_text_field.dart';
 
 class NoHabits extends ConsumerWidget {
   final TextEditingController controller;

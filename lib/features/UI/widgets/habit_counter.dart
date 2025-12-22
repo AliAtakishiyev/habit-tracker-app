@@ -65,7 +65,7 @@ class HabitCounter extends ConsumerWidget {
                   children: [
                     SvgPicture.asset("assets/star_icon.svg",width: 16,),
                     Text(
-                      "All habits complete!",
+                      "All habits completed!",
                       style: GoogleFonts.dmSans(
                         color: Color(0xff4B9B73),
                         fontSize: 18,

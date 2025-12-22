@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_tracker_app/features/UI/pages/home_screen.dart';
+import 'package:habit_tracker_app/features/ui/pages/home_screen.dart';
 import 'package:habit_tracker_app/features/models/habit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

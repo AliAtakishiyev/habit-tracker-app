@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_tracker_app/features/UI/widgets/add_habit_text_field.dart';
-import 'package:habit_tracker_app/features/UI/widgets/custom_app_bar.dart';
-import 'package:habit_tracker_app/features/UI/widgets/habit_counter.dart';
-import 'package:habit_tracker_app/features/UI/widgets/habit_list.dart';
-import 'package:habit_tracker_app/features/UI/widgets/no_habits.dart';
+import 'package:habit_tracker_app/features/ui/widgets/add_habit_text_field.dart';
+import 'package:habit_tracker_app/features/ui/widgets/custom_app_bar.dart';
+import 'package:habit_tracker_app/features/ui/widgets/habit_counter.dart';
+import 'package:habit_tracker_app/features/ui/widgets/habit_list.dart';
+import 'package:habit_tracker_app/features/ui/widgets/no_habits.dart';
 import 'package:habit_tracker_app/features/providers/habit_provider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -19,13 +19,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final FocusNode _focusNode = FocusNode();
 
-
   @override
   void initState() {
     super.initState();
     _habitController = TextEditingController();
-    _focusNode.addListener(() {
-    });
+    _focusNode.addListener(() {});
   }
 
   @override
@@ -41,7 +39,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final habitCount = habits.length;
     int count = ref.watch(habitProvider.notifier).doneCount();
 
-
     return Scaffold(
       backgroundColor: Color(0xffF8F7F0),
       body: SafeArea(
@@ -51,8 +48,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Column(
               children: [
                 CustomAppBar(),
-                (count==0)? SizedBox.shrink():  HabitCounter(),
-                (habitCount == 0) ? NoHabits(controller: _habitController!,focusNode: _focusNode,) : HabitList(controller: _habitController!,focusNode: _focusNode,),
+                (count == 0) ? SizedBox.shrink() : HabitCounter(),
+                (habitCount == 0)
+                    ? NoHabits(
+                        controller: _habitController!,
+                        focusNode: _focusNode,
+                      )
+                    : HabitList(
+                        controller: _habitController!,
+                        focusNode: _focusNode,
+                      ),
               ],
             ),
           ),

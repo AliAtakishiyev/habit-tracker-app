@@ -2,6 +2,10 @@ import 'package:habit_tracker_app/features/data/repositories/habit_repository.da
 import 'package:habit_tracker_app/features/models/habit.dart';
 import 'package:riverpod/riverpod.dart';
 
+final habitProvider = NotifierProvider<HabitProvider, List<Habit>>(
+  HabitProvider.new,
+);
+
 class HabitProvider extends Notifier<List<Habit>> {
   late final HabitRepository repository;
 
@@ -48,6 +52,4 @@ class HabitProvider extends Notifier<List<Habit>> {
   }
 }
 
-final habitProvider = NotifierProvider<HabitProvider, List<Habit>>(
-  HabitProvider.new,
-);
+
